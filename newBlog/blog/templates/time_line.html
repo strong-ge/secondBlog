@@ -1,0 +1,83 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <title>Blue Ocean - Materialize</title>
+    <!-- CSS  -->
+    <link rel="stylesheet" href="{% static "css/time_line.css" %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}"  media="screen,projection"/>
+</head>
+
+<body>
+  <div class="container">
+    <div class="timeline">
+        {% for x,y,z in date_list %}
+      <div class="timeline-event">
+        <div class="card timeline-content">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="{% static "img/1.jpg" %}">
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">
+                {{x.year}}-{{x.month}}    ({{z}})
+                <i class="material-icons right">
+                    more_vert
+                </i>
+            </span>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Blog List<i class="material-icons right">close</i></span>
+              {% for b in y %}
+              <p>{{ b.title }}</p>
+                  {% endfor %}
+          </div>
+        </div>
+        <div class="timeline-badge blue white-text">
+            <i class="material-icons">language</i>
+        </div>
+      </div>
+        {% endfor %}
+
+{#      <div class="timeline-event">#}
+{#        <div class="card timeline-content">#}
+{#          <div class="card-image waves-effect waves-block waves-light">#}
+{#            <img class="activator" src="{% static "img/dog.jpeg" %}">#}
+{#          </div>#}
+{#          <div class="card-content">#}
+{#            <span class="card-title activator grey-text text-darken-4">Tile<i class="material-icons right">more_vert</i></span>#}
+{#            <p>Content <a href="#">This is a link</a></p>#}
+{#          </div>#}
+{#          <div class="card-reveal">#}
+{#            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>#}
+{#            <p>Here is some more information about this product that is only revealed once clicked on.</p>#}
+{#          </div>#}
+{#        </div>#}
+{#        <div class="timeline-badge red white-text"><i class="material-icons">work</i></div>#}
+{#      </div>#}
+{#      <div class="timeline-event">#}
+{#        <div class="card timeline-content">#}
+{#          <div class="card-image waves-effect waves-block waves-light">#}
+{#            <img class="activator" src="{% static "img/dog.jpeg" %}">#}
+{#          </div>#}
+{#          <div class="card-content">#}
+{#            <span class="card-title activator grey-text text-darken-4">Tile<i class="material-icons right">more_vert</i></span>#}
+{#            <p>Content <a href="#">This is a link</a></p>#}
+{#          </div>#}
+{#          <div class="card-reveal">#}
+{#            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>#}
+{#            <p>Here is some more information about this product that is only revealed once clicked on.</p>#}
+{#          </div>#}
+{#        </div>#}
+{#        <div class="timeline-badge green white-text"><i class="material-icons">person</i></div>#}
+{#      </div>#}
+    </div>
+  </div>
+  <!--  Scripts-->
+  <script type="text/javascript" src="{% static "js/jquery-1.9.1.min.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}"  media="screen,projection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>strong-ge的个人博客</title>
+</head>
+<body>
+    <div class="container" style="opacity: 0">
+        <div class="section">
+            <h5 class="center-align">STRONG-GE'S BLOG</h5>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+        <div class="section">
+            <h5 class="center-align">STRONG-GE'S WEBSITE</h5>
+        </div>
+        <div class="divider"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="center-align">
+                <ul id="staggered-test" >
+                    <li  style="opacity: 0">
+                        <h5><a href="/list/">Blog</a></h5>
+                        <p>This is a description(V2.0)</p>
+                    </li>
+                    <li style="opacity: 0">
+                        <h5><a href="#">GitHub</a></h5>
+                        <p>没几个项目</p>
+                    </li>
+                    <li style="opacity: 0">
+                        <h5><a href="#">Weibo</a></h5>
+                        <p>没多少内容</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static "js/jquery-1.9.1.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
+    <script>
+        $(document).ready(function(){
+            setTimeout(function() {
+                Materialize.showStaggeredList('#staggered-test');
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
