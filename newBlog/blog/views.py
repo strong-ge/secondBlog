@@ -10,7 +10,7 @@ def index(request):
 
 
 def post_list(request):
-    blogs = Blog.objects.order_by('-update_time')
+    blogs = Blog.objects.order_by('-publish_time')
     paginator = Paginator(blogs, 8)
     page = request.GET.get('page')
     try:
