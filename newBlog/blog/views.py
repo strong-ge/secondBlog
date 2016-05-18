@@ -35,3 +35,8 @@ def time_line(request):
 def about(request):
     #   TODO
     return render(request, 'about.html')
+
+
+def test(request):
+    blog = Blog.objects.get(id=1)
+    return render(request, 'test.html', {'blog': blog})

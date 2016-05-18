@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^detail/(?P<aid>\d+)/$', blog_views.post_detail),
     url(r'^time_line/$', blog_views.time_line),
     url(r'^about/$', blog_views.about),
+    url(r'^test/$', blog_views.test),
 ]

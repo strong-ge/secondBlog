@@ -4,7 +4,7 @@ from blog.models import Blog
 
 
 def get_blog_by_month():
-    post_date = Blog.objects.datetimes('update_time', 'month')
+    post_date = Blog.objects.datetimes('publish_time', 'month')
     date_list = []
     for i in range(len(post_date)):
         date_list.append([])

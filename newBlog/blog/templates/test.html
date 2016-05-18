@@ -7,36 +7,25 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{% static "css/highlight.css" %}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static "css/codehilite.css" %}"  media="screen,projection"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <style>
         .highlight{
 {#            代码超框显示滚动条#}
             overflow:auto;
-            padding: 6.5px;
+            padding: 5.5px;
             border-radius: 8px;
-        }
-        code{
-            padding: 2px 4px;
-            border-radius: 3px;
-            background-color: #d9d9d9;
-            white-space: pre-wrap;
         }
         img {
             width: 100%;
         }
-        .realMore{
-            margin-top: 20px;
-        }
-        .more{
-            margin-top: 50px;
-        }
     </style>
-    <title>strong-ge的个人博客</title>
+    <title>{{ blog.title }}</title>
 </head>
 <body>
     <nav>
         <div class="nav-wrapper #26a69a teal lighten-1">
-            <a href="/list/" class="brand-logo">&nbsp;&nbsp;&nbsp;STRONG-GE</a>
+            <a href="#" class="brand-logo">&nbsp;&nbsp;&nbsp;STRONG-GE</a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="/list/">Artical</a></li>
@@ -57,24 +46,23 @@
             </div>
             <div class="col s8">
                 <ul>
-                    {%for blog in blog_list%}
                     <li>
                         <div class="section">
-                            <h4 class="center-align"><a href="/detail/{{blog.id}}/">{{blog.title}}</a></h4>
+                            <h4 class="center-align">{{ blog.title }}</h4>
                             {%for tag in blog.tags.all%}
-                                <div class="chip">
-                                    {{tag.tag_name}}
-                                </div>
-                            {%endfor%}
-                                {{ blog.content | markdown_list | safe | truncatewords_html:"30"}}
-                            <a href="/detail/{{blog.id}}" class="btn-flat waves-effect waves-purple right realMore">
-                                <span class="teal-text">More</span>
-                            </a>
+                            <div class="chip center-align">
+                                {{tag.tag_name}}
+                            </div>
+                            {% endfor %}
+                                {{ blog.content | markdown_detail | safe }}
+{#                        {{ blog.content | custom_markdown}}#}
                         </div>
                         <div class="divider more"></div>
                     </li>
-                    {% endfor %}
                 </ul>
+            <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="{{blog.id}}" data-title="{{blog.title}}" data-url="www.strong-ge.com/detail/{{blog.id}}/"></div>
+<!-- 多说评论框 end -->
             </div>
             <div class="col s2">
             </div>
@@ -92,40 +80,6 @@
         </ul>
     </div>
     <!--右下角小工具end-->
-    {% if blog_list.object_list and blog_list.paginator.num_pages > 1 %}
-    <div class="container">
-        <div class="row center">
-            <ul class="pagination">
-                {% if blog_list.has_previous %}
-                    <li class=" left-align">
-                        <a href="?page={{ blog_list.previous_page_number }}">
-                            <i class="material-icons ">chevron_left</i>
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="disabled left-align">
-                        <a href="#!">
-                            <i class="material-icons ">chevron_left</i>
-                        </a>
-                    </li>
-                {% endif %}
-                {% if blog_list.has_next %}
-                    <li class="waves-effect right-align">
-                        <a href="?page={{ blog_list.next_page_number }}">
-                            <i class="material-icons ">chevron_right</i>
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="disabled right-align">
-                        <a href="#!">
-                            <i class="material-icons ">chevron_right</i>
-                        </a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
-    {% endif %}
     <footer class="page-footer #26a69a teal lighten-1">
         <div class="container">
             <div class="row center">
@@ -142,24 +96,24 @@
     <script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
     <script>
         $(document).ready(function(){
+{#            var page=2;#}
             $(".button-collapse").sideNav();
             $("#share,#format_quote").click(function(){
                 Materialize.toast('敢不敢再点一次', 3000);
             });
-{#            $("#loadMore").click(function(){#}
-{#                $("#loadMore").remove();#}
-{#                var html = "<img width='150' height='130' src='images/loader-meta.gif' id='gif'>";#}
-{#                $("#moreContainer").append(html);#}
-{#                $.ajax({#}
-{#                    type: "GET",#}
-{#                    url: "list.html",#}
-{#                    data: {page:2},#}
-{#                    dataType: "json",#}
-{#                    success: function(){#}
-{#                        $("#gif").remove();#}
-{#                    }#}
-{#                });#}
-{#            });#}
         });
     </script>
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"strong-ge"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0]
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+    <!-- 多说公共JS代码 end -->
 </body>

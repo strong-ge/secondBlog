@@ -1,8 +1,12 @@
 from django import template
-import mistune
+import mistune,markdown
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
+from django import template
+from django.template.defaultfilters import stringfilter
+from django.utils.encoding import force_text
+from django.utils.safestring import mark_safe
 
 register = template.Library()
 
@@ -53,3 +57,14 @@ def markdown_detail(value):
     mdp = mistune.Markdown(escape=True, renderer=renderer)
     # print mdp(value)
     return mdp(value)
+
+
+@register.filter(is_safe=True)
+@stringfilter
+def custom_markdown(value):
+    a = mark_safe(markdown.markdown(value,extensions=['markdown.extensions.fenced_code',
+                                                         'markdown.extensions.codehilite'],
+                                       safe_mode=True,
+                                       enable_attributes=False))
+    print a
+    return a
