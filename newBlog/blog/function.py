@@ -11,7 +11,7 @@ def get_blog_by_month():
     for i in range(len(post_date)):
         current_year = post_date[i].year
         current_month = post_date[i].month
-        temp_article = Blog.objects.filter(update_time__year=current_year).filter(update_time__month=current_month)
+        temp_article = Blog.objects.filter(publish_time__year=current_year).filter(publish_time__month=current_month)
         temp_num = len(temp_article)
         date_list[i].append(post_date[i])
         date_list[i].append(temp_article)
