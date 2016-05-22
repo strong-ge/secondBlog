@@ -31,7 +31,7 @@
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">Blog List<i class="material-icons right">close</i></span>
               {% for b in y %}
-              <p>{{ b.title }}</p>
+              <p><a href="/detail/{{b.id}}/">{{ b.title }}</a></p>
                   {% endfor %}
           </div>
         </div>
