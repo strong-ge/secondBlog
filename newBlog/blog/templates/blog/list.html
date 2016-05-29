@@ -40,17 +40,17 @@
 <body>
     <nav>
         <div class="nav-wrapper #26a69a teal lighten-1">
-            <a href="/list/" class="brand-logo">&nbsp;&nbsp;&nbsp;STRONG-GE</a>
+            <a href="/blog/list/" class="brand-logo">&nbsp;&nbsp;&nbsp;STRONG-GE</a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="/list/">Artical</a></li>
-                <li><a href="/time_line/">Timelines</a></li>
-                <li><a href="/about/">About</a></li>
+                <li><a href="/blog/list/">Artical</a></li>
+                <li><a href="/blog/time_line/">Timelines</a></li>
+                <li><a href="/blog/about/">About</a></li>
             </ul>
             <ul class="side-nav" id="mobile-demo">
-                <li><a href="/list/">Artical</a></li>
-                <li><a href="/time_line/">Timelines</a></li>
-                <li><a href="/about/">About</a></li>
+                <li><a href="/blog/list/">Artical</a></li>
+                <li><a href="/blog/time_line/">Timelines</a></li>
+                <li><a href="/blog/about/">About</a></li>
             </ul>
         </div>
     </nav>
@@ -64,14 +64,14 @@
                     {%for blog in blog_list%}
                     <li>
                         <div class="section">
-                            <h4 class="center-align"><a href="/detail/{{blog.id}}/">{{blog.title}}</a></h4>
+                            <h4 class="center-align"><a href="/blog/detail/{{blog.id}}/">{{blog.title}}</a></h4>
                             {%for tag in blog.tags.all%}
                                 <div class="chip">
                                     {{tag.tag_name}}
                                 </div>
                             {%endfor%}
                                 {{ blog.content | markdown_list | safe | truncatewords_html:"30"}}
-                            <a href="/detail/{{blog.id}}" class="btn-flat waves-effect waves-purple right realMore">
+                            <a href="/blog/detail/{{blog.id}}" class="btn-flat waves-effect waves-purple right realMore">
                                 <span class="teal-text">More</span>
                             </a>
                         </div>

@@ -6,7 +6,7 @@ from function import *
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'blog/index.html')
 
 
 def post_list(request):
@@ -19,24 +19,24 @@ def post_list(request):
         blog_list = paginator.page(1)
     except EmptyPage:
         blog_list = paginator.paginator(paginator.num_pages)
-    return render(request, 'list.html', {'blog_list': blog_list})
+    return render(request, 'blog/list.html', {'blog_list': blog_list})
 
 
 def post_detail(request, aid):
     blog = Blog.objects.get(id=int(aid))
-    return render(request, 'detail.html', {'blog': blog})
+    return render(request, 'blog/detail.html', {'blog': blog})
 
 
 def time_line(request):
     date_list = get_blog_by_month()
-    return render(request, 'time_line.html', {'date_list': date_list})
+    return render(request, 'blog/time_line.html', {'date_list': date_list})
 
 
 def about(request):
     #   TODO
-    return render(request, 'about.html')
+    return render(request, 'blog/about.html')
 
 
 def test(request):
     blog = Blog.objects.get(id=1)
-    return render(request, 'test.html', {'blog': blog})
+    return render(request, 'blog/test.html', {'blog': blog})
