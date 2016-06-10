@@ -1,8 +1,22 @@
 from django.shortcuts import render
-from blog.models import Tag, Blog
+from blog.models import Tag, Blog, Image
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from function import *
-# from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from blog.serializers import BlogSerializer
+from django.http import HttpResponse
+
+
+class JSONResponse(HttpResponse):
+    """
+    An HttpResponse that renders its content into JSON.
+    """
+    def __init__(self, data, **kwargs):
+        content = JSONRenderer().render(data)
+        kwargs['content_type'] = 'application/json;charset=UTF-8'
+        super(JSONResponse, self).__init__(content, **kwargs)
 
 
 def index(request):
@@ -39,4 +53,39 @@ def about(request):
 
 def test(request):
     blog = Blog.objects.get(id=1)
-    return render(request, 'blog/test.html', {'blog': blog})
+    image = blog.images.all()
+    return render(request, 'blog/test.html', {'blog': blog, 'image': image})
+
+
+@csrf_exempt
+def blog_list_api(request):
+    """
+    List all code blogs, or create a new blog.
+    """
+    if request.method == 'GET':
+        snippets = Blog.objects.all()
+        serializer = BlogSerializer(snippets, many=True)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = BlogSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data, status=201)
+        return JSONResponse(serializer.errors, status=400)
+
+
+@csrf_exempt
+def blog_detail_api(request, pk):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        blog = Blog.objects.get(pk=pk)
+    except Blog.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = BlogSerializer(blog)
+        return JSONResponse(serializer.data)
